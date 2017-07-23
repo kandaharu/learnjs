@@ -1,13 +1,29 @@
 describe('LearnJS', function () {
   const learnjs = new LearnJS();
 
-  it('can show a problem view', function () {
-    learnjs.showView('#problem-1');
-    expect($('.view-container .problem-view').length).toEqual(1);
+  describe('#showView', function () {
+    it('can show a problem view', function () {
+      learnjs.showView('#problem-1');
+      expect($('.view-container .problem-view').length).toEqual(1);
+    });
+
+    it('shows the landing page view when there is no hash', function () {
+      learnjs.showView('');
+      expect($('.view-container .landing-view').length).toEqual(1);
+    });
+
+    it('passess the hash view parameter to the view function', function () {
+      spyOn(learnjs, 'problemView');
+      learnjs.showView('#problem-42');
+      expect(learnjs.problemView).toHaveBeenCalledWith('42');
+    });
   });
 
-  it('shows the landing page view when there is no hash', function () {
-    learnjs.showView('');
-    expect($('.view-container .landing-view').length).toEqual(1);
+  describe('#problemView', function () {
+    it('has a title that includes the problem number', function () {
+      let view = learnjs.problemView('1');
+      expect(view.text()).toEqual('Problem #1 Coming soon!');
+    });
+
   });
 });
