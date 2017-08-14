@@ -18,10 +18,14 @@ class LearnJS {
       $('.view-container').empty().append(viewFn(hashParts[1]));
     }
   }
+
+  appOnReady() {
+    this.showView(window.location.hash);
+  }
 }
 
 const learnjs = new LearnJS();
 
 $(() => {
-  learnjs.showView(window.location.hash);
+  learnjs.appOnReady();
 });

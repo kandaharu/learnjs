@@ -1,6 +1,14 @@
 describe('LearnJS', function () {
   const learnjs = new LearnJS();
 
+  describe('#appOnReady', function () {
+    it('invokes the router when loaded', function () {
+      spyOn(learnjs, 'showView');
+      learnjs.appOnReady();
+      expect(learnjs.showView).toHaveBeenCalledWith(window.location.hash);
+    });
+  });
+
   describe('#showView', function () {
     it('can show a problem view', function () {
       learnjs.showView('#problem-1');
