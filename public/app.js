@@ -20,6 +20,9 @@ class LearnJS {
   }
 
   appOnReady() {
+    window.onhashchange = () =>  {
+      this.showView(window.location.hash);
+    }
     this.showView(window.location.hash);
   }
 }
