@@ -2,8 +2,10 @@
 
 class LearnJS {
   problemView(problemNumber) {
+    const view = $('.templates .problem-view').clone();
     const title = `Problem #${problemNumber} Coming soon!`;
-    return $('<div class="problem-view">').text(title);
+    view.find('.title').text(title);
+    return view;
   }
 
   showView(hash) {
