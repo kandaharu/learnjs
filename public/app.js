@@ -1,11 +1,20 @@
 'use strict';
 
+/**
+ * @classdesc LearnJS を実行するためのクラス
+ */
 class LearnJS {
-  problemView(problemNumber) {
-    const view = $('.templates .problem-view').clone();
-    const title = `Problem #${problemNumber} Coming soon!`;
-    view.find('.title').text(title);
-    return view;
+
+  /**
+   * アプリがonReadyステートメントになった時に実行されるメソッド。
+   * onHashChangeイベントをフックして動的にViewを入れ替えるRouterの役割を担う。
+   * @memberof LearnJS
+   */
+  appOnReady() {
+    window.onhashchange = () =>  {
+      this.showView(window.location.hash);
+    }
+    this.showView(window.location.hash);
   }
 
   showView(hash) {
@@ -21,12 +30,19 @@ class LearnJS {
     }
   }
 
-  appOnReady() {
-    window.onhashchange = () =>  {
-      this.showView(window.location.hash);
-    }
-    this.showView(window.location.hash);
+  /**
+   * 問題Viewを作成する
+   * @param {number} problemNumber - 問題番号
+   * @return {jQueryObject} 問題View
+   * @memberof LearnJS
+   */
+  problemView(problemNumber) {
+    const $view = $('.templates .problem-view').clone();
+    const title = `Problem #${problemNumber} Coming soon!`;
+    $view.find('.title').text(title);
+    return $view;
   }
+
 }
 
 const learnjs = new LearnJS();
