@@ -1,6 +1,4 @@
-describe('LearnJS', function () {
-  const learnjs = new LearnJS();
-
+describe('learnjs', function () {
   describe('#appOnReady', function () {
     it('invokes the router when loaded', function () {
       spyOn(learnjs, 'showView');
@@ -36,8 +34,18 @@ describe('LearnJS', function () {
 
   describe('#problemView', function () {
     it('has a title that includes the problem number', function () {
-      let view = learnjs.problemView('1');
-      expect(view.text().trim()).toEqual('Problem #1 Coming soon!');
+      let $view = learnjs.problemView('1');
+      expect($view.find('.title').text().trim()).toEqual('Problem #1');
+    });
+
+    it('shows the description', function () {
+      let $view = learnjs.problemView('1');
+      expect($view.find('[data-name="description"]').text().trim()).toEqual('What is truth?');
+    });
+
+    it('shows the problem code', function () {
+      let $view = learnjs.problemView('1');
+      expect($view.find('[data-name="code"]').text().trim()).toEqual('function problem() { return __; }');
     });
 
   });
