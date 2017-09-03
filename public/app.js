@@ -53,10 +53,26 @@ learnjs.problemView = function (num) {
   const $view = $('.templates .problem-view').clone();
   const title = `Problem #${problemNumber}`;
   const problem = learnjs.problem[problemNumber - 1];
+  const $resultFlash = $view.find('.result');
 
-  learnjs.applyObject(problem, $view);
+  function checkAnswer() {
+    const answer = $view.find('.answer').val();
+    const test = `${problem.code.replace('__', answer)}; problem();`;
+    return eval(test);
+  }
 
+  function checkAnswerClick() {
+    if (checkAnswer()) {
+      $resultFlash.text('Correct!');
+    } else {
+      $resultFlash.text('Incorrect!');
+    }
+    return false;
+  }
+
+  $view.find('.check-btn').click(checkAnswerClick);
   $view.find('.title').text(title);
+  learnjs.applyObject(problem, $view);
   return $view;
 };
 

@@ -48,5 +48,20 @@ describe('learnjs', function () {
       expect($view.find('[data-name="code"]').text().trim()).toEqual('function problem() { return __; }');
     });
 
+    describe('answer section', function () {
+      it('can check a correct answer by hitting a button', function () {
+        let $view = learnjs.problemView('1');
+        $view.find('.answer').val('true');
+        $view.find('.check-btn').click();
+        expect($view.find('.result').text()).toEqual('Correct!');
+      });
+
+      it('rejects an incorrect answer', function () {
+        let $view = learnjs.problemView('1');
+        $view.find('.answer').val('false');
+        $view.find('.check-btn').click();
+        expect($view.find('.result').text()).toEqual('Incorrect!');
+      });
+    });
   });
 });
